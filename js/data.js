@@ -151,7 +151,7 @@ const THUMB_SCHEMA = [
     section: '썸네일 (1000 × 1000)',
     fields: [
       { path: 'product',   label: '제품 이미지', type: 'image', hint: '정사각 1000 × 1000px' },
-      { path: 'badgeText', label: '교과연계 뱃지', type: 'text', toggle: 'badgeOn', help: '줄바꿈으로 두 줄' },
+      { path: 'badgeText', label: '원형 뱃지', type: 'textarea', toggle: 'badgeOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
       { path: 'logoOn',    label: '편집부 메이커 로고', type: 'toggle' },
       { path: 'eatdongOn', label: '어린이 과학동아 뱃지', type: 'toggle' },
     ],
@@ -165,9 +165,9 @@ const BP = A + 'banner_product.png';
 const BSUB = '교과서 밖 과학 만나기 ‘지층과 화석‘';
 
 const BANNER_CONTENT = {
-  b1: { title: '지점토에 꾹꾹!\n*공룡 화석 만들기*', sub: BSUB, product: BP, dateLine1: '6/15일자', dateLine2: '154p' },
+  b1: { title: '지점토에 꾹꾹!\n*공룡 화석 만들기*', sub: BSUB, product: BP, dateLine1: '6/15일자', dateLine2: '154p', gwa: '교과\n연계', gwaOn: true },
   b2: { title: '*어린이과학동아와 함께* 실험해보는 시간!', product: BP },
-  b3: { title: '지점토에 꾹꾹!\n*공룡 화석 만들기 최저가*', sub: BSUB, product: BP, dateLine1: '6/15일자', dateLine2: '154p' },
+  b3: { title: '지점토에 꾹꾹!\n*공룡 화석 만들기 최저가*', sub: BSUB, product: BP, dateLine1: '6/15일자', dateLine2: '154p', gwa: '교과\n연계', gwaOn: true },
   b4: { sub: BSUB, title: '*공룡 화석* 만들기 최저가', product: BP, dateLine1: '6/15일자', dateLine2: '154p' },
 };
 
@@ -175,12 +175,14 @@ const _bnDateFields = [
   { path: 'dateLine1', label: '날짜 1줄', type: 'text' },
   { path: 'dateLine2', label: '날짜 2줄', type: 'text' },
 ];
+const _bnGwaField = { path: 'gwa', label: '원형 뱃지 (교과연계)', type: 'textarea', toggle: 'gwaOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 };
 const BANNER_SCHEMA = {
   b1: [{ section: '메인 배너 (840 × 400)', fields: [
     { path: 'title', label: '타이틀', type: 'textarea', help: '*별표*로 강조 · 최대 2줄', maxLines: 2 },
     { path: 'sub',   label: '부제', type: 'text' },
     { path: 'product', label: '제품 이미지', type: 'image', hint: '정사각 (예: 600 × 600)' },
     ..._bnDateFields,
+    _bnGwaField,
   ] }],
   b2: [{ section: '띠배너 (1080 × 144)', fields: [
     { path: 'title', label: '문구', type: 'text', help: '*별표*로 강조' },
@@ -191,6 +193,7 @@ const BANNER_SCHEMA = {
     { path: 'sub',   label: '부제', type: 'text' },
     { path: 'product', label: '제품 이미지', type: 'image', hint: '정사각 (예: 600 × 600)' },
     ..._bnDateFields,
+    _bnGwaField,
   ] }],
   b4: [{ section: '서브메인 배너 (1080 × 216)', fields: [
     { path: 'sub',   label: '부제 (상단)', type: 'text' },
@@ -212,6 +215,9 @@ const _czBase = {
   captionBottom: '5월 15일자 소개',
   dateLine1: '154~155',
   dateLine2: '페이지',
+  discText: '*45*%\nOFF', discOn: false,   // 무료배송 위 추가 뱃지 — 기본 숨김(*강조*=숫자 크게)
+  freeText: '무료\n배송', freeOn: true,
+  gwaText: '교과\n연계', gwaOn: true,
 };
 const CZ_CONTENT = {
   cz1: Object.assign({}, _czBase, { image: A + 'cz_img_insta.png' }),
@@ -228,6 +234,9 @@ function _czFields(imgHint) {
     { path: 'captionBottom', label: '박스 캡션 2줄', type: 'text' },
     { path: 'dateLine1',     label: '페이지 1줄', type: 'text' },
     { path: 'dateLine2',     label: '페이지 2줄', type: 'text' },
+    { path: 'discText',      label: '원형 뱃지 (상단·할인 등)', type: 'textarea', toggle: 'discOn', help: '기본 숨김 · *별표*=크게강조 · 최대 2줄', maxLines: 2 },
+    { path: 'freeText',      label: '원형 뱃지 (무료배송)', type: 'textarea', toggle: 'freeOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
+    { path: 'gwaText',       label: '원형 뱃지 (교과연계)', type: 'textarea', toggle: 'gwaOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
   ];
 }
 const CZ_SCHEMA = {
@@ -246,7 +255,7 @@ const EDITOR_SCHEMA = [
       { path: 's1.sub',         label: '소개 문구', type: 'textarea' },
       { path: 's1.bubble',      label: '손글씨 말풍선', type: 'textarea' },
       { path: 's1.product',     label: '제품 이미지', type: 'image', hint: '722 × 675px' },
-      { path: 's1.badgeCircle', label: '원형 뱃지 (빨강)', type: 'text', toggle: 's1.badgeOn' },
+      { path: 's1.badgeCircle', label: '원형 뱃지 (빨강)', type: 'textarea', toggle: 's1.badgeOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
       {
         subsection: '브랜드 / Special',
         lock: true,

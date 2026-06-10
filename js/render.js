@@ -162,7 +162,7 @@ function bnEatdong() {
 function bnRightBlock(c) {
   return `
     <div class="bn-prod" style="${bg(c.product)}"></div>
-    <div class="bn-gwa"><p>교과</p><p>연계</p></div>
+    ${c.gwaOn !== false ? `<div class="bn-gwa">${mlPlain(c.gwa != null ? c.gwa : '교과\n연계')}</div>` : ''}
     <div class="bn-date">${bnDate(c)}</div>
     <div class="bn-eatdong">${bnEatdong()}</div>
     <div class="bn-logo" style="${bg(A + 'thumb_brandlogo.png')}"></div>`;
@@ -204,8 +204,9 @@ function renderCz(c, blob) {
       <div class="cz-cap"><p class="t">${esc(c.captionTop)}</p><p class="b">${esc(c.captionBottom)}</p></div>
     </div>
     <div class="cz-badges">
-      <div class="bz free"><p>무료</p><p>배송</p></div>
-      <div class="bz gwa"><p>교과</p><p>연계</p></div>
+      ${c.discOn ? `<div class="bz disc">${ml(c.discText != null ? c.discText : '*45*%\nOFF')}</div>` : ''}
+      ${c.freeOn !== false ? `<div class="bz free">${mlPlain(c.freeText != null ? c.freeText : '무료\n배송')}</div>` : ''}
+      ${c.gwaOn !== false ? `<div class="bz gwa">${mlPlain(c.gwaText != null ? c.gwaText : '교과\n연계')}</div>` : ''}
     </div>
     <div class="cz-date">
       <img class="bg" src="${A}cz_date_bg.svg" alt="">

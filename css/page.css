@@ -156,8 +156,9 @@
 /* Figma 말풍선(Union)에 적용된 -scale-y-100 + rotate-180 = 좌우 반전. 꼬리 방향 동일하게 */
 .s1-product .bubble img { position: absolute; inset: 0; width: 100%; height: 100%; transform: scaleX(-1); }
 .s1-product .bubble .txt {
-  /* 1줄 기준 세로 중심(36 + 50/2 = 61px)을 고정 → 2줄 이상이어도 정중앙 유지 */
-  position: absolute; left: 50%; top: 61px; transform: translate(-50%, -50%);
+  /* 말풍선 본체(타원) 세로 중심 ≈ 111px(viewBox 240, 본체 하단 222.68의 절반)에 고정
+     → 1·2·3줄 어떤 경우에도 본체 정중앙 유지 */
+  position: absolute; left: 50%; top: 111px; transform: translate(-50%, -50%);
   font-family: var(--f-pen);
   font-size: 40px; line-height: 50px; letter-spacing: -.8px;
   color: var(--teal-dark); text-align: center; white-space: nowrap;
@@ -171,6 +172,8 @@
   font-size: 56px; line-height: 1.1; letter-spacing: -1.12px;
   color: #fff; text-align: center; font-weight: 700;
 }
+/* 각 줄은 줄바꿈 없이 한 줄 유지(자동 축소 측정용) */
+.s1-product .badge p { white-space: nowrap; }
 
 /* 브랜드 스토리 */
 .s1-brand, .s1-special { gap: 48px; padding: 40px 0; }
@@ -415,6 +418,8 @@
   font-family: var(--f-paper); font-weight: 700;
   font-size: 64px; line-height: 1.1; letter-spacing: -1.28px; text-align: center;
 }
+/* 각 줄은 줄바꿈 없이 한 줄 유지(자동 축소 측정용) */
+.th-badge p { white-space: nowrap; }
 
 /* =========================================================
    배너 (4종) — bg #eff3f5
@@ -444,6 +449,7 @@
 .bn-imgbox .bn-gwa { position: absolute; left: 264px; top: 288px; width: 80px; height: 80px; border-radius: 40px;
   background: #ff6637; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center;
   font-family: var(--f-paper); font-weight: 700; font-size: 24px; line-height: 1.1; letter-spacing: -0.48px; text-align: center; }
+.bn-imgbox .bn-gwa p { white-space: nowrap; }
 .bn-imgbox .bn-date { position: absolute; left: 131.97px; top: 302px; width: 78.028px; height: 57px; }
 .bn-imgbox .bn-eatdong { position: absolute; left: 254px; top: 60px; width: 86px; height: 74px; }
 .bn-imgbox .bn-logo { position: absolute; left: 37px; top: 277px; width: 100px; height: 100px;
@@ -558,10 +564,17 @@
 .cz-badges .bz { aspect-ratio: 1 / 1; width: 100%; border-radius: 9999px; display: flex;
   flex-direction: column; align-items: center; justify-content: center;
   font-family: 'Gmarket Sans', var(--f-body); font-weight: 700; text-align: center; }
+/* 상단 추가 뱃지(할인 등) — 시안: 배경 #004be2, Gmarket Sans Medium 기본 + *강조*는 Bold·크게 */
+.cz-badges .bz.disc { background: #004be2; color: #fff; font-weight: 500; }
+.cz-badges .bz.disc em { font-style: normal; font-weight: 700; font-size: 1.385em; }
+.cz1 .cz-badges .bz.disc { font-size: 46.8px; }
+.cz2 .cz-badges .bz.disc { font-size: 26px; }
 .cz-badges .bz.free { background: #abd5eb; color: #004be2; }
 .cz-badges .bz.gwa  { background: #ff6637; color: #fff; }
-.cz1 .cz-badges .bz { font-size: 60px; line-height: 60px; }
-.cz2 .cz-badges .bz { font-size: 32px; line-height: 32px; }
+.cz1 .cz-badges .bz { font-size: 60px; line-height: 1; }
+.cz2 .cz-badges .bz { font-size: 32px; line-height: 1; }
+/* 각 줄은 줄바꿈 없이 한 줄 유지(자동 축소 측정용) */
+.cz-badges .bz p { white-space: nowrap; }
 
 .cz-date { position: absolute; }
 .cz1 .cz-date { left: 41px; top: 1534px; width: 184.803px; height: 135px; }

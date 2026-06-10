@@ -54,6 +54,9 @@ function migrateBanner(c) {
     else if (c.titleA !== undefined || c.titleB !== undefined) c.title = `*${c.titleA || ''}* ${c.titleB || ''}`.trim();
   }
   delete c.title1; delete c.title2; delete c.titleA; delete c.titleB;
+  // 교과연계 원형 뱃지 필드(b1·b3) 기본값 보강 — 기존 저장본 호환
+  if (c.gwa === undefined) c.gwa = '교과\n연계';
+  if (c.gwaOn === undefined) c.gwaOn = true;
 }
 
 /* 캐러셀: 가격 뒤 배너(블롭) 가로폭을 가격 텍스트 폭에 맞춤 */
@@ -395,6 +398,59 @@ function createMaker(cfg) {
   return { fitScale, makePng, name: cfg.exportName };
 }
 
+/* 원형 뱃지: 기본 폰트 크기 유지, 원을 벗어날 때만 글자 크기 자동 축소.
+   원(반지름 r) 안에 각 줄이 들어가도록 줄의 세로 위치별 가용 가로폭을 계산해 맞춤. */
+function fitCircleBadge(badge, BASE) {
+  if (!badge) return;
+  const ps = Array.prototype.slice.call(badge.querySelectorAll('p'));
+  if (!ps.length) return;
+  badge.style.fontSize = '';                 // 인라인 제거 → CSS 기본값 측정
+  const cs = getComputedStyle(badge);
+  if (BASE == null) BASE = parseFloat(cs.fontSize) || 24;
+  let LH = parseFloat(cs.lineHeight) / parseFloat(cs.fontSize);  // line-height 비율(unitless 기준)
+  if (!isFinite(LH) || LH <= 0) LH = 1.1;
+  const MIN = 10;
+  const r = badge.clientWidth / 2;
+  if (!r) return;
+  const PAD = r * 0.1;   // 원 크기에 비례한 안전 여백
+  let size = BASE;
+  for (; size > MIN; size--) {
+    badge.style.fontSize = size + 'px';
+    const L = size * LH;             // 한 줄 높이
+    const N = ps.length;
+    const H = N * L;                 // 전체 텍스트 블록 높이(세로 중앙 정렬)
+    let ok = (H / 2) <= (r - PAD);   // 세로로 원 안에 들어가는가
+    if (ok) {
+      for (let i = 0; i < N; i++) {
+        // i번째 줄이 차지하는 띠의 바깥쪽 가장자리 y(원 중심 기준)
+        const yEdge = Math.max(Math.abs(-H / 2 + L * i), Math.abs(-H / 2 + L * (i + 1)));
+        const half = Math.sqrt(Math.max(0, r * r - yEdge * yEdge)) - PAD; // 그 높이에서 허용 반폭
+        if (ps[i].scrollWidth / 2 > half) { ok = false; break; }
+      }
+    }
+    if (ok) break;
+  }
+  badge.style.fontSize = size + 'px';
+}
+function fitDetailBadge(pageEl) { fitCircleBadge(pageEl.querySelector('.s1-product .badge'), 56); }
+function fitThumbBadge(pageEl) { fitCircleBadge(pageEl.querySelector('.th-badge'), 64); }
+function fitBannerGwa(pageEl) { fitCircleBadge(pageEl.querySelector('.bn-gwa'), 24); }
+function fitCzBadges(pageEl) {
+  fitCircleBadge(pageEl.querySelector('.cz-badges .disc'), null);  // base는 CSS에서 자동 감지(cz1:60 / cz2:32)
+  fitCircleBadge(pageEl.querySelector('.cz-badges .free'), null);
+  fitCircleBadge(pageEl.querySelector('.cz-badges .gwa'), null);
+}
+function afterRenderCz(pageEl) { sizeCzBlob(pageEl); fitCzBadges(pageEl); }
+/* 캐러셀 교과연계/무료배송 원형 뱃지 필드 기본값 보강 — 기존 저장본 호환 */
+function migrateCz(c) {
+  if (c.discText === undefined) c.discText = '*45*%\nOFF';
+  if (c.discOn === undefined) c.discOn = false;
+  if (c.freeText === undefined) c.freeText = '무료\n배송';
+  if (c.freeOn === undefined) c.freeOn = true;
+  if (c.gwaText === undefined) c.gwaText = '교과\n연계';
+  if (c.gwaOn === undefined) c.gwaOn = true;
+}
+
 /* =========================================================
    메이커 인스턴스 생성
    ========================================================= */
@@ -406,6 +462,7 @@ const makers = [
     render: renderPage,
     width: 1240,
     exportName: '상세페이지',
+    afterRender: fitDetailBadge,
     migrate: migrateDetail,
     ids: { page: 'page-detail', frame: 'frame-detail', escroll: 'escroll-detail', viewport: 'viewport-detail',
            export: 'btn-export-detail', save: 'btn-save-detail', load: 'btn-load-detail', reset: 'btn-reset-detail' },
@@ -417,6 +474,7 @@ const makers = [
     render: renderThumb,
     width: 1000,
     exportName: '썸네일',
+    afterRender: fitThumbBadge,
     ids: { page: 'page-thumb', frame: 'frame-thumb', escroll: 'escroll-thumb', viewport: 'viewport-thumb',
            export: 'btn-export-thumb', save: 'btn-save-thumb', load: 'btn-load-thumb', reset: 'btn-reset-thumb' },
   }),
@@ -439,6 +497,7 @@ BANNER_DEFS.forEach(b => {
     width: b.w,
     exportName: b.name,
     migrate: migrateBanner,
+    afterRender: (b.key === 'b1' || b.key === 'b3') ? fitBannerGwa : undefined,
     ids: { page: 'page-' + b.key, frame: 'frame-' + b.key, escroll: 'escroll-' + b.key, viewport: 'viewport-' + b.key,
            export: 'btn-export-' + b.key, save: 'btn-save-' + b.key, load: 'btn-load-' + b.key, reset: 'btn-reset-' + b.key },
   });
@@ -512,13 +571,14 @@ const CZ_DEFS = [
 const czMakers = {};
 CZ_DEFS.forEach(z => {
   const m = createMaker({
-    storeKey: 'cz_' + z.key + '_v1',
+    storeKey: 'cz_' + z.key + '_v2',   // v2: disc 뱃지 기본값(숨김 + *강조*) 정정 — 옛 저장값 무효화
     defaultContent: CZ_CONTENT[z.key],
     schema: CZ_SCHEMA[z.key],
     render: z.render,
     width: z.w,
     exportName: z.name,
-    afterRender: sizeCzBlob,
+    afterRender: afterRenderCz,
+    migrate: migrateCz,
     ids: { page: 'page-' + z.key, frame: 'frame-' + z.key, escroll: 'escroll-' + z.key, viewport: 'viewport-' + z.key,
            export: 'btn-export-' + z.key, save: 'btn-save-' + z.key, load: 'btn-load-' + z.key, reset: 'btn-reset-' + z.key },
   });
