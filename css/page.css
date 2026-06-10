@@ -156,7 +156,8 @@
 /* Figma 말풍선(Union)에 적용된 -scale-y-100 + rotate-180 = 좌우 반전. 꼬리 방향 동일하게 */
 .s1-product .bubble img { position: absolute; inset: 0; width: 100%; height: 100%; transform: scaleX(-1); }
 .s1-product .bubble .txt {
-  position: absolute; left: 50%; top: 36px; transform: translateX(-50%);
+  /* 1줄 기준 세로 중심(36 + 50/2 = 61px)을 고정 → 2줄 이상이어도 정중앙 유지 */
+  position: absolute; left: 50%; top: 61px; transform: translate(-50%, -50%);
   font-family: var(--f-pen);
   font-size: 40px; line-height: 50px; letter-spacing: -.8px;
   color: var(--teal-dark); text-align: center; white-space: nowrap;
