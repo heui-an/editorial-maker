@@ -66,7 +66,7 @@ function sizeCzBlob(pageEl) {
   if (!price || !blob) return;
   const w = price.offsetWidth;           // 레이아웃 폭(스케일 영향 없음)
   if (!w) return;
-  const pad = pageEl.classList.contains('cz1') ? 8 : 6;   // 텍스트를 더 꼭 맞게 감쌈
+  const pad = pageEl.classList.contains('cz1') ? 8 : 0;   // cz2는 텍스트폭에 딱 맞춤
   blob.style.width = (w + pad) + 'px';
 }
 
@@ -641,7 +641,7 @@ document.querySelectorAll('.cz-sizes .czsize').forEach(btn => {
     const s = btn.dataset.czsize;
     document.querySelectorAll('.cz-sizes .czsize').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.czsub').forEach(p => p.classList.toggle('active', p.dataset.czsub === s));
-    requestAnimationFrame(fitAll);
+    setTimeout(fitAll, 0);   // 백그라운드 탭에서도 fire되도록 rAF 대신 setTimeout
   });
 });
 
@@ -655,7 +655,7 @@ document.querySelectorAll('.nav-item').forEach(btn => {
     const tab = btn.dataset.tab;
     document.querySelectorAll('.nav-item').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
-    requestAnimationFrame(fitAll);
+    setTimeout(fitAll, 0);   // 백그라운드 탭에서도 fire되도록 rAF 대신 setTimeout
   });
 });
 
@@ -665,6 +665,6 @@ document.querySelectorAll('.banner-sizes .bsize').forEach(btn => {
     const s = btn.dataset.bsize;
     document.querySelectorAll('.banner-sizes .bsize').forEach(b => b.classList.toggle('active', b === btn));
     document.querySelectorAll('.bsub').forEach(p => p.classList.toggle('active', p.dataset.bsub === s));
-    requestAnimationFrame(fitAll);
+    setTimeout(fitAll, 0);   // 백그라운드 탭에서도 fire되도록 rAF 대신 setTimeout
   });
 });
