@@ -92,14 +92,14 @@ function renderPage(c) {
       <div class="bar-title">${esc(c.s3.kitBar)}</div>
       <div class="s3-cont">
         <div class="kit-imgbox" style="${bg(c.s3.kit)}"></div>
-        <div class="info-box">
+        ${c.s3.infoOn !== false ? `<div class="info-box">
           <div class="info-tag beige">${esc(c.s3.infoTag)}</div>
           <div class="single">${mlPlain(c.s3.infoBody)}</div>
-        </div>
-        <div class="info-box">
+        </div>` : ''}
+        ${c.s3.cautionOn !== false ? `<div class="info-box">
           <div class="info-tag orange">${esc(c.s3.cautionTag)}</div>
           <div class="info-list">${cautions}</div>
-        </div>
+        </div>` : ''}
       </div>
     </div>
     <div class="col s3-group">

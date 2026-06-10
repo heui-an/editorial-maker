@@ -89,7 +89,9 @@ const DEFAULT_CONTENT = {
     "kitBar": "구성품",
     "infoTag": "구성품 안내",
     "infoBody": "클레이(200g), 비둘기표석고가루(200g),공룡미니어처(1ea)\n자연물(에그스톤, 나뭇가지, 흰조개(1), 우드칩), 종이컵2종(대,소)",
+    "infoOn": true,
     "cautionTag": "주의사항",
+    "cautionOn": true,
     "cautions": [
       "클레이(도우)에 소금을 천연방부제로 사용하여 자연건조시 하얀 소금꽃이 피어오릅니다. 곰팡이가 아니니 걱정하지 마세요.",
       "자연성분으로 피부가 민감한 자녀들도 사용할 수 있습니다."
@@ -304,9 +306,9 @@ const EDITOR_SCHEMA = [
     fields: [
       { path: 's3.kitBar',     label: '[구성품] 바 제목', type: 'text' },
       { path: 's3.kit',        label: '구성품 이미지', type: 'image', hint: '1080 × 680px' },
-      { path: 's3.infoBody',   label: '구성품 안내 내용', type: 'textarea', help: 'Enter로 줄바꿈' },
+      { path: 's3.infoBody',   label: '구성품 안내 내용', type: 'textarea', help: 'Enter로 줄바꿈', toggle: 's3.infoOn' },
       { path: 's3.cautions', label: '주의사항', type: 'list',
-        help: 'Enter로 항목 구분',
+        help: 'Enter로 항목 구분', toggle: 's3.cautionOn',
         placeholder: '예) 거치대 구매시 비용 1,000원이 추가됩니다.\n예) 클레이에 소금을 천연방부제로 사용합니다.' },
       { path: 's3.gosiBar',    label: '[고시정보] 바 제목', type: 'text' },
       { path: 's3.gosi',       label: '고시정보 이미지', type: 'image', hint: '516 × 500px' },
