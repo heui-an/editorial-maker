@@ -1,0 +1,70 @@
+/* =========================================================
+   폰트 설정
+   - 동아 라이선스 폰트(산돌/Paperlogy)를 fonts/ 폴더에 넣으면
+     아래 @font-face 가 자동으로 잡아 픽셀 단위로 동일하게 렌더링됩니다.
+   - 파일이 없으면 무료 대체 폰트(Jua/Gaegu/Pretendard)로 표시됩니다.
+   - 지원 파일명(둘 중 아무거나): .woff2 또는 .otf / .ttf
+   ========================================================= */
+
+/* 본문 - Pretendard (가변폰트 단일 파일, 로컬 번들) */
+@font-face {
+  font-family: 'Pretendard';
+  src: url('../fonts/PretendardVariable.woff2') format('woff2-variations');
+  font-weight: 45 920;
+  font-display: swap;
+}
+
+/* ---- 동아 라이선스 폰트 슬롯 ---- */
+@font-face {
+  font-family: 'Sandoll CinemaTheater';
+  src: url('../fonts/SandollCinemaTheater.woff2') format('woff2'),
+       url('../fonts/SandollCinemaTheater.otf')   format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sandoll GyeokdongGL2';
+  src: url('../fonts/SandollGyeokdongGL2.woff2') format('woff2'),
+       url('../fonts/SandollGyeokdongGL2.otf')   format('opentype');
+  font-weight: 700;   /* 타이틀은 Bold/Heavy 사용 → Bold 파일 권장 */
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sandoll Gyeokdonggulim';
+  src: url('../fonts/SandollGyeokdonggulim.woff2') format('woff2'),
+       url('../fonts/SandollGyeokdonggulim.otf')   format('opentype');
+  font-weight: 700;   /* 타이틀은 Bold 사용 → Bold 파일 권장 */
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sandoll Nemony2';
+  src: url('../fonts/SandollNemony2.woff2') format('woff2'),
+       url('../fonts/SandollNemony2.otf')   format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Sandoll BaikzongyulPen';
+  src: url('../fonts/SandollBaikzongyulPen.woff2') format('woff2'),
+       url('../fonts/SandollBaikzongyulPen.otf')   format('opentype');
+  font-display: swap;
+}
+/* 배너 날짜 - Gmarket Sans (무료, 로컬 번들) */
+@font-face {
+  font-family: 'Gmarket Sans';
+  src: url('../fonts/GmarketSansBold.woff') format('woff');
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gmarket Sans';
+  src: url('../fonts/GmarketSansMedium.woff') format('woff');
+  font-weight: 500;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Paperlogy';
+  src: url('../fonts/Paperlogy-7Bold.woff2') format('woff2'),
+       url('../fonts/Paperlogy-7Bold.otf')   format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}

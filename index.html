@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>상세페이지 메이커 — 클레이 지구 만들기</title>
+
+  <!-- 본문 폰트 Pretendard (가변폰트, 로컬 번들 — css/fonts.css의 @font-face) -->
+  <!-- 무료 대체 표시용 (산돌/Paperlogy 없을 때): 둥근 제목 Jua, 손글씨 Gaegu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jua&family=Black+Han+Sans&family=Gaegu:wght@700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/fonts.css?v=16">
+  <link rel="stylesheet" href="css/page.css?v=16">
+  <link rel="stylesheet" href="css/app.css?v=16">
+</head>
+<body>
+  <div id="shell">
+    <!-- 좌측 사이드 메뉴 -->
+    <aside id="sidebar">
+      <div class="app-logo side-brand">
+        <span class="al-mark">✂️</span>
+        <span class="al-txt">편집부 메이커 제작도구</span>
+      </div>
+      <nav class="side-nav">
+        <button class="nav-item active" data-tab="detail"><span class="ni-ico">📄</span>상세페이지</button>
+        <button class="nav-item" data-tab="thumb"><span class="ni-ico">🖼️</span>썸네일</button>
+        <button class="nav-item" data-tab="banner"><span class="ni-ico">🎌</span>배너</button>
+        <button class="nav-item" data-tab="carousel"><span class="ni-ico">🎠</span>캐러셀</button>
+      </nav>
+    </aside>
+
+    <!-- 탭 콘텐츠 -->
+    <div id="tabs">
+      <!-- 상세페이지 탭 -->
+      <section class="tab-panel active" data-panel="detail">
+        <div class="app">
+          <aside class="editor">
+            <div class="ehead">
+              <p>왼쪽에서 텍스트·이미지를 바꾸면 오른쪽 미리보기에 바로 반영돼요.<br>
+                 완성되면 상단 <b>이미지로 저장(PNG)</b>으로 전체를 한 장에 담아 내보내세요.</p>
+            </div>
+            <div class="escroll" id="escroll-detail"></div>
+          </aside>
+          <main class="preview">
+            <div class="toolbar">
+              <button class="btn primary" id="btn-export-detail">🖼️ 이미지로 저장 (PNG)</button>
+              <button class="btn ghost" id="btn-save-detail">설정 저장</button>
+              <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-detail" accept="application/json" hidden></label>
+              <button class="btn ghost" id="btn-reset-detail">전체 초기화</button>
+              <span class="sp"></span>
+              <span class="hint">출력 크기 1240 × 자동 (원본 1:1)</span>
+            </div>
+            <div class="viewport" id="viewport-detail">
+              <div class="frame" id="frame-detail">
+                <div class="page canvas" id="page-detail"></div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </section>
+
+      <!-- 썸네일 탭 -->
+      <section class="tab-panel" data-panel="thumb">
+        <div class="app">
+          <aside class="editor">
+            <div class="ehead">
+              <p>제품 이미지를 올리고 뱃지를 켜고 끄면 미리보기에 바로 반영돼요.<br>
+                 완성되면 <b>이미지로 저장(PNG)</b>으로 1000×1000 썸네일을 내보내세요.</p>
+            </div>
+            <div class="escroll" id="escroll-thumb"></div>
+          </aside>
+          <main class="preview">
+            <div class="toolbar">
+              <button class="btn primary" id="btn-export-thumb">🖼️ 이미지로 저장 (PNG)</button>
+              <button class="btn ghost" id="btn-save-thumb">설정 저장</button>
+              <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-thumb" accept="application/json" hidden></label>
+              <button class="btn ghost" id="btn-reset-thumb">전체 초기화</button>
+              <span class="sp"></span>
+              <span class="hint">출력 크기 1000 × 1000 (원본 1:1)</span>
+            </div>
+            <div class="viewport" id="viewport-thumb">
+              <div class="frame" id="frame-thumb">
+                <div class="thumb canvas" id="page-thumb"></div>
+              </div>
+            </div>
+          </main>
+        </div>
+      </section>
+
+      <!-- 배너 탭 -->
+      <section class="tab-panel" data-panel="banner">
+        <div class="banner-sizes">
+          <button class="bsize active" data-bsize="b1">메인 840×400</button>
+          <button class="bsize" data-bsize="b2">띠배너 1080×144</button>
+          <button class="bsize" data-bsize="b3">하단AD 1080×388</button>
+          <button class="bsize" data-bsize="b4">서브메인 1080×216</button>
+          <button class="bn-export-all" id="btn-export-all-banner">⬇ 배너 폴더로 저장 (ZIP)</button>
+        </div>
+        <div class="banner-body">
+
+          <div class="bsub active" data-bsub="b1"><div class="app">
+            <aside class="editor"><div class="ehead"><p>메인 배너 — 840 × 400</p></div><div class="escroll" id="escroll-b1"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-b1">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-b1">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-b1" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-b1">전체 초기화</button>
+                <span class="sp"></span><span class="hint">840 × 400</span>
+              </div>
+              <div class="viewport" id="viewport-b1"><div class="frame" id="frame-b1"><div class="bn bn1 canvas" id="page-b1"></div></div></div>
+            </main>
+          </div></div>
+
+          <div class="bsub" data-bsub="b2"><div class="app">
+            <aside class="editor"><div class="ehead"><p>메인상단 띠배너 — 1080 × 144</p></div><div class="escroll" id="escroll-b2"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-b2">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-b2">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-b2" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-b2">전체 초기화</button>
+                <span class="sp"></span><span class="hint">1080 × 144</span>
+              </div>
+              <div class="viewport" id="viewport-b2"><div class="frame" id="frame-b2"><div class="bn bn2 canvas" id="page-b2"></div></div></div>
+            </main>
+          </div></div>
+
+          <div class="bsub" data-bsub="b3"><div class="app">
+            <aside class="editor"><div class="ehead"><p>메인하단 AD 배너 — 1080 × 388</p></div><div class="escroll" id="escroll-b3"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-b3">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-b3">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-b3" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-b3">전체 초기화</button>
+                <span class="sp"></span><span class="hint">1080 × 388</span>
+              </div>
+              <div class="viewport" id="viewport-b3"><div class="frame" id="frame-b3"><div class="bn bn3 canvas" id="page-b3"></div></div></div>
+            </main>
+          </div></div>
+
+          <div class="bsub" data-bsub="b4"><div class="app">
+            <aside class="editor"><div class="ehead"><p>서브메인 상단 배너 — 1080 × 216</p></div><div class="escroll" id="escroll-b4"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-b4">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-b4">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-b4" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-b4">전체 초기화</button>
+                <span class="sp"></span><span class="hint">1080 × 216</span>
+              </div>
+              <div class="viewport" id="viewport-b4"><div class="frame" id="frame-b4"><div class="bn bn4 canvas" id="page-b4"></div></div></div>
+            </main>
+          </div></div>
+
+        </div>
+      </section>
+
+      <!-- 캐러셀 탭 -->
+      <section class="tab-panel" data-panel="carousel">
+        <div class="banner-sizes cz-sizes">
+          <button class="czsize active" data-czsize="cz1">인스타 스토리 1080×1920</button>
+          <button class="czsize" data-czsize="cz2">캐러셀 600×800</button>
+          <button class="bn-export-all" id="btn-export-all-cz">⬇ 캐러셀 폴더로 저장 (ZIP)</button>
+        </div>
+        <div class="banner-body">
+
+          <div class="czsub active" data-czsub="cz1"><div class="app">
+            <aside class="editor"><div class="ehead"><p>인스타 스토리 — 1080 × 1920</p></div><div class="escroll" id="escroll-cz1"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-cz1">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-cz1">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-cz1" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-cz1">전체 초기화</button>
+                <span class="sp"></span><span class="hint">1080 × 1920</span>
+              </div>
+              <div class="viewport" id="viewport-cz1"><div class="frame" id="frame-cz1"><div class="cz cz1 canvas" id="page-cz1"></div></div></div>
+            </main>
+          </div></div>
+
+          <div class="czsub" data-czsub="cz2"><div class="app">
+            <aside class="editor"><div class="ehead"><p>캐러셀 — 600 × 800</p></div><div class="escroll" id="escroll-cz2"></div></aside>
+            <main class="preview">
+              <div class="toolbar">
+                <button class="btn primary" id="btn-export-cz2">🖼️ 이미지로 저장 (PNG)</button>
+                <button class="btn ghost" id="btn-save-cz2">설정 저장</button>
+                <label class="btn ghost">설정 불러오기<input type="file" id="btn-load-cz2" accept="application/json" hidden></label>
+                <button class="btn ghost" id="btn-reset-cz2">전체 초기화</button>
+                <span class="sp"></span><span class="hint">600 × 800</span>
+              </div>
+              <div class="viewport" id="viewport-cz2"><div class="frame" id="frame-cz2"><div class="cz cz2 canvas" id="page-cz2"></div></div></div>
+            </main>
+          </div></div>
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="overlay"><span class="spinner"></span>이미지를 만드는 중입니다…</div>
+
+  <!-- 라이브러리 & 스크립트 -->
+  <script src="vendor/html-to-image.js"></script>
+  <script src="vendor/jszip.min.js"></script>
+  <script src="js/data.js?v=16"></script>
+  <script src="js/render.js?v=16"></script>
+  <script src="js/app.js?v=16"></script>
+</body>
+</html>
