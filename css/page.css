@@ -131,6 +131,7 @@
   width: 100%;
 }
 .s1-headline .l2 { color: var(--yellow); }
+.s1-headline p { white-space: nowrap; }   /* 줄바꿈 없이 한 줄 → 폭 넘치면 JS가 폰트 축소 */
 .s1-sub {
   font-family: var(--f-body);
   font-weight: 400;

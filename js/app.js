@@ -433,6 +433,20 @@ function fitCircleBadge(badge, BASE) {
   badge.style.fontSize = size + 'px';
 }
 function fitDetailBadge(pageEl) { fitCircleBadge(pageEl.querySelector('.s1-product .badge'), 56); }
+/* 상세 메인 헤드라인: 각 줄 기본 크기(120px) 유지, 폭 넘치면 그 줄만 자동 축소 */
+function fitDetailTitle(pageEl) {
+  const head = pageEl.querySelector('.s1-headline');
+  if (!head) return;
+  const avail = head.clientWidth;   // 1080 블록 폭 — 기본 문구는 그대로 유지, 넘칠 때만 축소
+  if (!avail) return;
+  head.querySelectorAll('p').forEach(p => {
+    p.style.fontSize = '';                              // 기본값(120px)으로 리셋
+    const base = parseFloat(getComputedStyle(p).fontSize);
+    const w = p.scrollWidth;
+    if (w > avail) p.style.fontSize = (base * avail / w).toFixed(2) + 'px';
+  });
+}
+function afterRenderDetail(pageEl) { fitDetailBadge(pageEl); fitDetailTitle(pageEl); }
 function fitThumbBadge(pageEl) { fitCircleBadge(pageEl.querySelector('.th-badge'), 64); }
 function fitBannerGwa(pageEl) { fitCircleBadge(pageEl.querySelector('.bn-gwa'), 24); }
 function fitCzBadges(pageEl) {
@@ -473,7 +487,7 @@ const makers = [
     render: renderPage,
     width: 1240,
     exportName: '상세페이지',
-    afterRender: fitDetailBadge,
+    afterRender: afterRenderDetail,
     migrate: migrateDetail,
     ids: { page: 'page-detail', frame: 'frame-detail', escroll: 'escroll-detail', viewport: 'viewport-detail',
            export: 'btn-export-detail', save: 'btn-save-detail', load: 'btn-load-detail', reset: 'btn-reset-detail' },
