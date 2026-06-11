@@ -16,13 +16,13 @@
   --gray:       #555;
 
   /* 폰트: 동아 라이선스 폰트(fonts/ 에 넣으면 자동 적용) → 무료 대체 폰트 순 */
-  --f-display:  'Sandoll CinemaTheater', 'Jua', sans-serif;            /* 큰 타이틀/바 타이틀 */
-  --f-heavy:    'Sandoll GyeokdongGL2', 'Black Han Sans', 'Jua', sans-serif;     /* 강조 헤드라인 (두꺼운 둥근 폰트) */
-  --f-round:    'Sandoll Gyeokdonggulim', 'Black Han Sans', 'Jua', sans-serif;  /* POINT 라벨 */
-  --f-nemony:   'Sandoll Nemony2', 'Jua', sans-serif;                 /* 구조 라벨 */
-  --f-pen:      'Sandoll BaikzongyulPen', 'Gaegu', cursive;           /* 손글씨 말풍선 */
-  --f-paper:    'Paperlogy', 'Jua', sans-serif;                        /* 교과연계 뱃지 */
-  --f-body:     'Pretendard', system-ui, sans-serif;                   /* 본문 */
+  --f-display:  'SB Aggro', 'Black Han Sans', 'Jua', sans-serif;            /* 큰 타이틀/바 타이틀 (SB 어그로 Bold) */
+  --f-heavy:    'NanumSquareRound EB', 'Black Han Sans', 'Jua', sans-serif; /* 강조 헤드라인·뱃지·Special·포인트 제목 (나눔스퀘어라운드 EB) */
+  --f-round:    'Gmarket Sans', 'Black Han Sans', sans-serif;              /* POINT 라벨 (Gmarket Sans Bold) */
+  --f-nemony:   'NanumSquareRound EB', 'Jua', sans-serif;                  /* 구조 라벨 */
+  --f-pen:      'Kyobo Handwriting 2025', 'Gaegu', cursive;               /* 손글씨 말풍선 (교보손글씨 2025) */
+  --f-paper:    'Gmarket Sans', 'Jua', sans-serif;                        /* 교과연계 뱃지 (Gmarket Sans Bold) */
+  --f-body:     'Pretendard', system-ui, sans-serif;                       /* 본문 */
 }
 
 /* ---- 전체 캔버스 ---- */
@@ -41,6 +41,8 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+  font-synthesis: none;             /* 가짜 굵게/기울임 금지 (이미 Bold인 폰트 이중 굵게 방지) */
+  -webkit-font-synthesis: none;
 }
 .page * { box-sizing: border-box; }
 .page p { margin: 0; }
@@ -61,9 +63,11 @@
 .bar-title {
   border: 6px solid var(--teal);
   border-radius: 100px;
-  padding: 32px 48px;
+  height: 120px;                                  /* 시안 박스 높이 */
+  display: flex; align-items: center; justify-content: center;   /* 텍스트 정중앙 */
+  padding: 0 48px;
   font-family: var(--f-display);
-  font-size: 56px;
+  font-size: 58px;
   letter-spacing: -1.12px;
   color: var(--teal);
   line-height: 1;
@@ -102,10 +106,12 @@
 .s1-bub {
   background: #fff;
   border-radius: 100px;
-  padding: 24px 32px;
+  height: 88px;                                   /* 시안 박스 높이 */
+  display: flex; align-items: center; justify-content: center;   /* 텍스트 정중앙 */
+  padding: 0 32px;
   position: relative;
   font-family: var(--f-heavy);
-  font-size: 40px;
+  font-size: 48px;
   letter-spacing: -1.6px;
   color: var(--teal);
   line-height: 1;
@@ -117,8 +123,8 @@
 }
 .s1-headline {
   font-family: var(--f-display);
-  font-size: 112px;
-  line-height: 128px;
+  font-size: 120px;
+  line-height: 130px;
   letter-spacing: -2.24px;
   text-align: center;
   color: #fff;
@@ -180,7 +186,7 @@
 .s1-brand .card, .s1-special .card { width: 100%; }
 .brand-box { padding: 56px 64px; gap: 24px; text-align: center; }
 .brand-box .t {
-  font-family: var(--f-heavy); font-size: 44px;
+  font-family: var(--f-heavy); font-size: 48px;
   letter-spacing: -1.76px; color: var(--teal); line-height: 1;
 }
 .brand-box .b {
@@ -203,7 +209,7 @@
 .special-card .ico { width: 144px; height: 144px; }
 .special-card .ico img { width: 100%; height: 100%; }
 .special-card .t {
-  font-family: var(--f-heavy); font-size: 44px;
+  font-family: var(--f-heavy); font-size: 48px;
   letter-spacing: -1.76px; line-height: 1; text-align: center;
 }
 .special-card .b {
@@ -230,8 +236,8 @@
   background: var(--teal);
   border-radius: 100px;
   padding: 26px 32px 22px;
-  font-family: var(--f-round);
-  font-size: 40px; color: #fff; line-height: 1;
+  font-family: var(--f-round); font-weight: 700;
+  font-size: 44px; color: #fff; line-height: 1;
   text-align: center; white-space: nowrap;
 }
 .point .label.orange { background: var(--orange); }
@@ -241,7 +247,7 @@
 }
 .point .ptitle {
   font-family: var(--f-heavy);
-  font-size: 68px; line-height: 100px; letter-spacing: -2.72px;
+  font-size: 76px; line-height: 100px; letter-spacing: -2.72px;
   color: var(--ink); text-align: center; width: 100%;
 }
 .point .ptitle em { font-style: normal; }
@@ -373,7 +379,7 @@
   justify-content: center; padding: 56px 0; color: #353535; white-space: nowrap;
 }
 .s4-text .t {
-  font-family: var(--f-heavy); font-size: 52px;
+  font-family: var(--f-heavy); font-size: 60px;
   line-height: 70px; letter-spacing: -3.12px;
 }
 .s4-text .t.acc-teal em { color: var(--teal); }   /* *별표* 강조 = 청록 */
@@ -492,8 +498,8 @@
 .b4-title { position: absolute; left: 70px; top: 44px; width: 640px; display: flex; flex-direction: column;
   gap: 8px; align-items: flex-start; white-space: nowrap; }
 .bn4-sub { font-weight: 500; font-size: 28px; line-height: 40px; letter-spacing: -0.84px; color: #000; }
-.bn4-title { font-family: 'esamanru', var(--f-body); font-weight: 700; font-size: 52px; line-height: 64px;
-  letter-spacing: -1.56px; color: #000; }
+.bn4-title { font-family: var(--f-display); font-weight: 700; font-size: 54px; line-height: 64px;
+  letter-spacing: -1.62px; color: #000; }
 .bn4-title em { color: #14b5b1; font-style: normal; }
 
 /* =========================================================
@@ -513,19 +519,21 @@
 .cz1 .cz-head { top: 200px; width: 1080px; gap: 40px; }
 .cz2 .cz-head { top: 45px; width: 600px; gap: 12px; }
 .cz-pillwrap { display: flex; flex-direction: column; align-items: center; }
-.cz .cz-pill { background: #fff; font-family: var(--f-heavy); color: #14b5b1; text-align: center; white-space: nowrap; line-height: normal; }
-.cz1 .cz-pill { padding: 20px 50px; border-radius: 42.595px; font-size: 40px; letter-spacing: -2.4px; }
-.cz2 .cz-pill { padding: 10px 24px; border-radius: 22.034px; font-size: 20.271px; letter-spacing: -1.2163px; }
+.cz .cz-pill { background: #fff; font-family: var(--f-heavy); color: #14b5b1; text-align: center; white-space: nowrap; line-height: 1;
+  display: flex; align-items: center; justify-content: center; }   /* 텍스트 정중앙 */
+.cz1 .cz-pill { height: 88px; padding: 0 50px; border-radius: 42.595px; font-size: 48px; letter-spacing: -2.4px; }
+.cz2 .cz-pill { height: 40px; padding: 0 24px; border-radius: 22.034px; font-size: 22px; letter-spacing: -1.2163px; }
 .cz1 .cz-tail { width: 44px; height: 20px; }
 .cz2 .cz-tail { width: 22px; height: 11px; }
-.cz .cz-title { font-family: var(--f-display); text-align: center; color: #fff; width: 100%; }
+.cz .cz-title { font-family: var(--f-display); text-align: center; color: #fff; width: 100%; --czt: 1; }
 .cz .cz-title em { color: #ffdf4c; font-style: normal; }
+.cz .cz-title p { white-space: nowrap; }   /* 줄바꿈 없이 한 줄 → 폭 넘치면 JS가 --czt로 축소 */
 .cz1 .cz-title { letter-spacing: -3.6px; }
-.cz1 .cz-title p { font-size: 80px; line-height: 1.2; }
-.cz1 .cz-title em { font-size: 120px; }
+.cz1 .cz-title p { font-size: calc(120px * var(--czt)); line-height: 1.2; }
+.cz1 .cz-title em { font-size: calc(130px * var(--czt)); }
 .cz2 .cz-title { letter-spacing: -1.56px; }
-.cz2 .cz-title p { font-size: 48px; line-height: 1.2; }
-.cz2 .cz-title em { font-size: 52px; }
+.cz2 .cz-title p { font-size: calc(50px * var(--czt)); line-height: 1.2; }
+.cz2 .cz-title em { font-size: calc(56px * var(--czt)); }
 
 .cz-price { position: absolute; left: 50%; transform: translateX(-50%); display: flex;
   font-family: var(--f-display); white-space: nowrap;
@@ -533,9 +541,9 @@
 .cz-price .lbl { color: #ffdf4c; }
 .cz-price .val { color: #fff; }
 /* 외곽선 굵게 (텍스트 자체 그림자 없음) */
-.cz1 .cz-price { top: 668px; gap: 20px; align-items: flex-end; font-size: 90px; -webkit-text-stroke-width: 11px; }
+.cz1 .cz-price { top: 668px; gap: 20px; align-items: flex-end; font-size: 100px; -webkit-text-stroke-width: 11px; }
 .cz1 .cz-price .val { letter-spacing: -2.7px; }
-.cz2 .cz-price { top: 241px; gap: 8px; align-items: center; font-size: 36px; -webkit-text-stroke-width: 5px; }
+.cz2 .cz-price { top: 241px; gap: 8px; align-items: center; font-size: 40px; -webkit-text-stroke-width: 5px; }
 .cz2 .cz-price .val { letter-spacing: -1.08px; }
 
 /* 가격 뒤 청록 배너 — 가로폭은 JS가 가격 텍스트 폭에 맞춰 조절 */
@@ -554,9 +562,9 @@
 .cz-cap .t { color: #14b5b1; }
 .cz-cap .b { color: #000; }
 .cz1 .cz-cap { top: 656px; width: 864px; }
-.cz1 .cz-cap .t, .cz1 .cz-cap .b { font-size: 56px; line-height: 72px; }
+.cz1 .cz-cap .t, .cz1 .cz-cap .b { font-size: 60px; line-height: 72px; }
 .cz2 .cz-cap { top: 322px; width: 480px; }
-.cz2 .cz-cap .t, .cz2 .cz-cap .b { font-size: 34px; line-height: 44px; }
+.cz2 .cz-cap .t, .cz2 .cz-cap .b { font-size: 38px; line-height: 44px; }
 
 .cz-badges { position: absolute; display: flex; flex-direction: column; }
 .cz1 .cz-badges { left: 41px; top: 835px; width: 198px; gap: 8px; }

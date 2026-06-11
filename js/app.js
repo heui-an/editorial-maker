@@ -440,7 +440,18 @@ function fitCzBadges(pageEl) {
   fitCircleBadge(pageEl.querySelector('.cz-badges .free'), null);
   fitCircleBadge(pageEl.querySelector('.cz-badges .gwa'), null);
 }
-function afterRenderCz(pageEl) { sizeCzBlob(pageEl); fitCzBadges(pageEl); }
+/* 캐러셀 타이틀: 시안 크기(120/130 등) 기준, 폭 넘치면 자동 축소(--czt) */
+function fitCzTitle(pageEl) {
+  const title = pageEl.querySelector('.cz-title');
+  if (!title) return;
+  title.style.setProperty('--czt', '1');
+  const avail = title.clientWidth * 0.98;   // 좌우 약간 여백
+  if (!avail) return;
+  let widest = 0;
+  title.querySelectorAll('p').forEach(p => { widest = Math.max(widest, p.scrollWidth); });
+  if (widest > avail) title.style.setProperty('--czt', (avail / widest).toFixed(4));
+}
+function afterRenderCz(pageEl) { sizeCzBlob(pageEl); fitCzBadges(pageEl); fitCzTitle(pageEl); }
 /* 캐러셀 교과연계/무료배송 원형 뱃지 필드 기본값 보강 — 기존 저장본 호환 */
 function migrateCz(c) {
   if (c.discText === undefined) c.discText = '*45*%\nOFF';

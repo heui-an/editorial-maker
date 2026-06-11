@@ -9,7 +9,7 @@
 /* 본문 - Pretendard (가변폰트 단일 파일, 로컬 번들) */
 @font-face {
   font-family: 'Pretendard';
-  src: url('../fonts/PretendardVariable.woff2') format('woff2-variations');
+  src: url('../fonts/PretendardVariable.woff2') format('woff2');
   font-weight: 45 920;
   font-display: swap;
 }
@@ -19,6 +19,28 @@
   font-family: 'Sandoll CinemaTheater';
   src: url('../fonts/SandollCinemaTheater.woff2') format('woff2'),
        url('../fonts/SandollCinemaTheater.otf')   format('opentype');
+  font-display: swap;
+}
+/* ===== 시안 적용 폰트(무료, 로컬 번들 → 맥/윈도우/내보내기 동일) ===== */
+/* 큰 타이틀·바 제목 → SB 어그로 Bold (파일이 Bold이므로 700로 선언 → 가짜 굵게 방지) */
+@font-face {
+  font-family: 'SB Aggro';
+  src: url('../fonts/SBAggroB.otf') format('opentype');
+  font-weight: 700;
+  font-display: swap;
+}
+/* 강조 헤드라인·뱃지·Special·포인트 제목 → 나눔스퀘어라운드 ExtraBold (800로 선언) */
+@font-face {
+  font-family: 'NanumSquareRound EB';
+  src: url('../fonts/NanumSquareRoundEB.otf') format('opentype');
+  font-weight: 800;
+  font-display: swap;
+}
+/* 손글씨 말풍선 → 교보손글씨 2025 */
+@font-face {
+  font-family: 'Kyobo Handwriting 2025';
+  src: url('../fonts/KyoboHandwriting2025.otf') format('opentype');
+  font-weight: 400;
   font-display: swap;
 }
 @font-face {
