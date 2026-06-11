@@ -277,6 +277,11 @@ function createMaker(cfg) {
           : `<input type="text" class="txt">`);
       const inp = wrap.querySelector(isArea ? 'textarea' : 'input.txt');
       if (hasTgl && !on) inp.disabled = true;
+      // 다른 필드의 토글에 연동해 비활성화 (예: 날짜 2줄 ← dateOn)
+      if (f.disabledBy) {
+        inp.dataset.disabledBy = f.disabledBy;
+        if (getPath(content, f.disabledBy) === false) inp.disabled = true;
+      }
       // 줄 수 제한 (Enter 차단)
       if (f.maxLines) {
         inp.addEventListener('keydown', e => {
@@ -306,6 +311,8 @@ function createMaker(cfg) {
         chk.addEventListener('change', () => {
           setPath(content, f.toggle, chk.checked);
           inp.disabled = !chk.checked;
+          // 이 토글에 연동된 다른 필드들도 함께 활성/비활성
+          escrollEl.querySelectorAll('[data-disabled-by="' + f.toggle + '"]').forEach(el => { el.disabled = !chk.checked; });
           rerender();
         });
       }
@@ -469,7 +476,7 @@ function afterRenderCz(pageEl) { sizeCzBlob(pageEl); fitCzBadges(pageEl); fitCzT
 /* 캐러셀 교과연계/무료배송 원형 뱃지 필드 기본값 보강 — 기존 저장본 호환 */
 function migrateCz(c) {
   if (c.discText === undefined) c.discText = '*45*%\nOFF';
-  if (c.discOn === undefined) c.discOn = false;
+  if (c.discOn === undefined) c.discOn = true;
   if (c.freeText === undefined) c.freeText = '무료\n배송';
   if (c.freeOn === undefined) c.freeOn = true;
   if (c.gwaText === undefined) c.gwaText = '교과\n연계';
@@ -493,7 +500,7 @@ const makers = [
            export: 'btn-export-detail', save: 'btn-save-detail', load: 'btn-load-detail', reset: 'btn-reset-detail' },
   }),
   createMaker({
-    storeKey: 'thumbmaker_v1',
+    storeKey: 'thumbmaker_v2',
     defaultContent: THUMB_CONTENT,
     schema: THUMB_SCHEMA,
     render: renderThumb,
@@ -596,7 +603,7 @@ const CZ_DEFS = [
 const czMakers = {};
 CZ_DEFS.forEach(z => {
   const m = createMaker({
-    storeKey: 'cz_' + z.key + '_v2',   // v2: disc 뱃지 기본값(숨김 + *강조*) 정정 — 옛 저장값 무효화
+    storeKey: 'cz_' + z.key + '_v3',   // v3: 할인 뱃지 기본 노출 + 뱃지 배치 정정 — 옛 저장값 무효화
     defaultContent: CZ_CONTENT[z.key],
     schema: CZ_SCHEMA[z.key],
     render: z.render,

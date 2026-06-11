@@ -427,6 +427,15 @@
 }
 /* 각 줄은 줄바꿈 없이 한 줄 유지(자동 축소 측정용) */
 .th-badge p { white-space: nowrap; }
+/* 날짜 뱃지 (시안: 좌426.3 상754, 273.782×200) */
+.th-date { position: absolute; left: 426.3px; top: 754px; width: 273.782px; height: 200px; }
+.th-date .bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.th-date .vec { position: absolute; left: 49.38%; top: 0; width: 50.62%; height: 100%; }
+.th-date .dtxt { position: absolute; inset: 0; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; font-family: 'Gmarket Sans', var(--f-body);
+  font-weight: 700; color: #fff; line-height: 1.1; text-align: center; }
+.th-date .dtxt p { font-size: 60.61px; }
+.th-date .dtxt .p2 { font-size: 56.14px; font-weight: 500; }
 
 /* =========================================================
    배너 (4종) — bg #eff3f5
@@ -567,9 +576,12 @@
 .cz2 .cz-cap { top: 322px; width: 480px; }
 .cz2 .cz-cap .t, .cz2 .cz-cap .b { font-size: 38px; line-height: 44px; }
 
-.cz-badges { position: absolute; display: flex; flex-direction: column; }
-.cz1 .cz-badges { left: 41px; top: 835px; width: 198px; gap: 8px; }
-.cz2 .cz-badges { left: 22px; top: 294px; width: 110px; gap: 4px; }
+.cz-badges { position: absolute; display: flex; flex-direction: column; align-items: center; }   /* 3개 뱃지 가로 중앙정렬(날짜가 좁아도 가운데) */
+.cz1 .cz-badges { left: 41px; top: 875px; width: 198px; gap: 8px; }
+.cz2 .cz-badges { left: 22px; top: 294px; width: 110px; gap: 8px; }
+/* 교과연계(우측 단독 열) — 시안 배치 */
+.cz1 .cz-badges.cz-badges-r { left: 841px; }
+.cz2 .cz-badges.cz-badges-r { left: 460px; gap: 4px; }
 .cz-badges .bz { aspect-ratio: 1 / 1; width: 100%; border-radius: 9999px; display: flex;
   flex-direction: column; align-items: center; justify-content: center;
   font-family: 'Gmarket Sans', var(--f-body); font-weight: 700; text-align: center; }
@@ -585,9 +597,9 @@
 /* 각 줄은 줄바꿈 없이 한 줄 유지(자동 축소 측정용) */
 .cz-badges .bz p { white-space: nowrap; }
 
-.cz-date { position: absolute; }
-.cz1 .cz-date { left: 41px; top: 1534px; width: 184.803px; height: 135px; }
-.cz2 .cz-date { left: 25px; top: 624px;  width: 102.668px; height: 75px; }
+.cz-date { position: relative; flex: none; }   /* 왼쪽 뱃지 열의 항목으로 배치 */
+.cz1 .cz-date { width: 184.803px; height: 135px; }
+.cz2 .cz-date { width: 102.668px; height: 75px; }
 .cz-date .bg { position: absolute; inset: 0; width: 100%; height: 100%; }
 .cz-date .vec { position: absolute; left: 49.38%; top: 0; width: 50.62%; height: 100%; }
 .cz-date .dtxt { position: absolute; inset: 0; display: flex; flex-direction: column;

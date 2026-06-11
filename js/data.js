@@ -146,6 +146,7 @@ const THUMB_CONTENT = {
   eatdongOn: true,
   badgeText: '교과\n연계',
   badgeOn: true,
+  dateLine1: '6/15일자', dateLine2: '154p', dateOn: true,
 };
 
 const THUMB_SCHEMA = [
@@ -154,6 +155,8 @@ const THUMB_SCHEMA = [
     fields: [
       { path: 'product',   label: '제품 이미지', type: 'image', hint: '정사각 1000 × 1000px' },
       { path: 'badgeText', label: '원형 뱃지', type: 'textarea', toggle: 'badgeOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
+      { path: 'dateLine1', label: '날짜 뱃지 1줄', type: 'text', toggle: 'dateOn' },
+      { path: 'dateLine2', label: '날짜 뱃지 2줄', type: 'text', disabledBy: 'dateOn' },
       { path: 'logoOn',    label: '편집부 메이커 로고', type: 'toggle' },
       { path: 'eatdongOn', label: '어린이 과학동아 뱃지', type: 'toggle' },
     ],
@@ -217,7 +220,7 @@ const _czBase = {
   captionBottom: '5월 15일자 소개',
   dateLine1: '154~155',
   dateLine2: '페이지',
-  discText: '*45*%\nOFF', discOn: false,   // 무료배송 위 추가 뱃지 — 기본 숨김(*강조*=숫자 크게)
+  discText: '*45*%\nOFF', discOn: true,   // 무료배송 위 할인 뱃지 — 기본 노출(*강조*=숫자 크게)
   freeText: '무료\n배송', freeOn: true,
   gwaText: '교과\n연계', gwaOn: true,
 };
@@ -236,7 +239,7 @@ function _czFields(imgHint) {
     { path: 'captionBottom', label: '박스 캡션 2줄', type: 'text' },
     { path: 'dateLine1',     label: '페이지 1줄', type: 'text' },
     { path: 'dateLine2',     label: '페이지 2줄', type: 'text' },
-    { path: 'discText',      label: '원형 뱃지 (상단·할인 등)', type: 'textarea', toggle: 'discOn', help: '기본 숨김 · *별표*=크게강조 · 최대 2줄', maxLines: 2 },
+    { path: 'discText',      label: '원형 뱃지 (상단·할인 등)', type: 'textarea', toggle: 'discOn', help: '*별표*=크게강조 · 최대 2줄', maxLines: 2 },
     { path: 'freeText',      label: '원형 뱃지 (무료배송)', type: 'textarea', toggle: 'freeOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
     { path: 'gwaText',       label: '원형 뱃지 (교과연계)', type: 'textarea', toggle: 'gwaOn', help: '줄바꿈(Enter)으로 최대 2줄', maxLines: 2 },
   ];

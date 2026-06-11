@@ -143,7 +143,12 @@ function renderThumb(c) {
         <div class="bubble"><img src="${A}thumb_eatdong_bubble.svg" alt=""></div>
         <img class="logo" src="${A}thumb_eatdong.svg" alt="">
       </div>` : ''}
-    ${(c.badgeOn !== false && c.badgeText) ? `<div class="th-badge">${mlPlain(c.badgeText)}</div>` : ''}`;
+    ${(c.badgeOn !== false && c.badgeText) ? `<div class="th-badge">${mlPlain(c.badgeText)}</div>` : ''}
+    ${c.dateOn !== false ? `<div class="th-date">
+      <img class="bg" src="${A}banner_date_bg.svg" alt="">
+      <img class="vec" src="${A}banner_date_vec.svg" alt="">
+      <div class="dtxt"><p>${esc(c.dateLine1)}</p><p class="p2">${esc(c.dateLine2)}</p></div>
+    </div>` : ''}`;
 }
 
 /* =========================================================
@@ -204,14 +209,16 @@ function renderCz(c, blob) {
       <div class="cz-cap"><p class="t">${esc(c.captionTop)}</p><p class="b">${esc(c.captionBottom)}</p></div>
     </div>
     <div class="cz-badges">
-      ${c.discOn ? `<div class="bz disc">${ml(c.discText != null ? c.discText : '*45*%\nOFF')}</div>` : ''}
+      ${c.discOn !== false ? `<div class="bz disc">${ml(c.discText != null ? c.discText : '*45*%\nOFF')}</div>` : ''}
       ${c.freeOn !== false ? `<div class="bz free">${mlPlain(c.freeText != null ? c.freeText : '무료\n배송')}</div>` : ''}
-      ${c.gwaOn !== false ? `<div class="bz gwa">${mlPlain(c.gwaText != null ? c.gwaText : '교과\n연계')}</div>` : ''}
+      <div class="cz-date">
+        <img class="bg" src="${A}cz_date_bg.svg" alt="">
+        <img class="vec" src="${A}cz_date_vec.svg" alt="">
+        <div class="dtxt"><p>${esc(c.dateLine1)}</p><p class="p2">${esc(c.dateLine2)}</p></div>
+      </div>
     </div>
-    <div class="cz-date">
-      <img class="bg" src="${A}cz_date_bg.svg" alt="">
-      <img class="vec" src="${A}cz_date_vec.svg" alt="">
-      <div class="dtxt"><p>${esc(c.dateLine1)}</p><p class="p2">${esc(c.dateLine2)}</p></div>
+    <div class="cz-badges cz-badges-r">
+      ${c.gwaOn !== false ? `<div class="bz gwa">${mlPlain(c.gwaText != null ? c.gwaText : '교과\n연계')}</div>` : ''}
     </div>
     <div class="cz-price"><span class="lbl">${esc(c.priceLabel)}</span><span class="val">${esc(c.priceValue)}</span></div>
     <div class="cz-head">
